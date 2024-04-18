@@ -26,7 +26,7 @@ html,
 body {
     background-color: var(--color-background);
     font-family: 'PoppinsRegular', 'Rubik', 'sans-serif';
-    color: var(--color-text);
+    color: var(--color-secondary);
 }
 
 b {
@@ -46,13 +46,13 @@ a.navbar-brand {
 }
 
 .nav-link {
-    color: var(--color-black) !important;
+    color: var(--color-black-heavy) !important;
     padding-left: 35px !important;
     padding-right: 35px !important;
 }
 
 .btn-white {
-    background-color: var(--color-white);
+    background-color: transparent;
     color: var(--color-black) !important;
     border-radius: 20px;
     padding: 15px 25px;
