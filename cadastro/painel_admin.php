@@ -27,6 +27,12 @@ if(!isset($_SESSION['admin_logado'])){
     <a href="cadastrar_produto.php">
         <button>Cadastrar Produto</button>
     </a>
+    <a href="listar_produtos.php">
+        <button>Lista de Produtos</button>
+    </a>
+    <a href="categoria.php">
+        <button>Cadastrar Categoria</button>
+    </a>
 </body>
 </html>
 

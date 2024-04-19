@@ -37,8 +37,8 @@ try {
                 <th>Email</th>
                 <th>Senha</th>
                 <th>Ativo</th>
-                <th></th>
-                <th></th>
+                <th>Editar</th>
+                <th>Excluir</th>
             </tr>
         </thead>
 
@@ -49,8 +49,8 @@ try {
                 <td><?php echo $administrador['ADM_EMAIL']; ?></td>
                 <td><?php echo $administrador['ADM_SENHA']; ?></td>
                 <td><?php echo $administrador['ADM_ATIVO']; ?></td>
-                <td><a href="editar_admin.php?id=<?php echo $administrador['ADM_ID']; ?>">✍</a></td>
-                <td><a href="excluir_admin.php?id=<?php echo $administrador['ADM_ID']; ?>">❌</a></td>
+                <td><a href="editar_admin.php?id=<?php echo $administrador['ADM_ID']; ?>"class="action-btn">✍</a></td>
+                <td><a href="excluir_admin.php?id=<?php echo $administrador['ADM_ID']; ?>" class="action-btn delete-btn">❌</a></td>
             </tr>
         <?php endforeach; ?>
     </table>

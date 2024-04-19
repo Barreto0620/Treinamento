@@ -1,46 +1,40 @@
-body{
-    font-family: Arial, sans-serif;
+body {
+    font-family: 'arial',sans-serif;
 }
 
-table{
+table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
 }
 
-th, td{
+th,td {
     padding: 10px;
-    text-align: left;
     border-bottom: 1px solid #ddd;
+    text-align: left;
 }
 
-th{
+th {
     background-color: #4CAF50;
-    color: white;
+    color: #fff;
 }
 
-tr:hover{
-    background-color: #f1f1f1;
+tr :hover {
+    background-color:#f1f1f1;
 }
 
-.action-btn{
+.action-btn {
     padding: 5px 10px;
-    background-color: #4CAF50;
-    color: white;
     border: none;
     text-decoration: none;
     display: inline-block;
-    cursor: pointer;
+    border-radius: 5px;
 }
 
-.action-btn:hover{
+.action-btn:hover {
     background-color: #45a049;
 }
 
-.action-btn .delete-btn{
-    background-color: #f44336;
-}
-
-.action-btn .delete-btn:hover{
+.delete-btn:hover {
     background-color: #da190b;
 }
