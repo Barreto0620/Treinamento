@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if (isset($_GET['id'])) {
         $id = $_GET['id'];
         try {
-            $stmt = $pdo->prepare("SELECT * FROM PRODUTO WHERE PRODUTO_ID = :id");
+            $stmt = $pdo->prepare("SELECT p.*, pi.IMAGEM_URL FROM PRODUTO p LEFT JOIN PRODUTO_IMAGEM pi ON p.PRODUTO_ID = pi.PRODUTO_ID WHERE p.PRODUTO_ID = :id");
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->execute();
             $produto = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -41,27 +41,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $imagem_url = $_POST['imagem_url'];
 
     try {
-        $stmt = $pdo->prepare("UPDATE PRODUTO SET PRODUTO_NOME = :nome, PRODUTO_DESC = :descricao, PRODUTO_PRECO = :preco, CATEGORIA_ID = :categoria, PRODUTO_ATIVO = :ativo, IMAGEM_URL = :imagem_url WHERE PRODUTO_ID = :id");
+        $stmt = $pdo->prepare("UPDATE PRODUTO SET PRODUTO_NOME = :nome, PRODUTO_DESC = :descricao, PRODUTO_PRECO = :preco, CATEGORIA_ID = :categoria, PRODUTO_ATIVO = :ativo WHERE PRODUTO_ID = :id");
         $stmt->bindParam(':nome', $nome, PDO::PARAM_STR);
         $stmt->bindParam(':descricao', $descricao, PDO::PARAM_STR);
         $stmt->bindParam(':preco', $preco, PDO::PARAM_INT);
         $stmt->bindParam(':categoria', $categoria, PDO::PARAM_INT);
         $stmt->bindParam(':ativo', $ativo, PDO::PARAM_INT);
-        $stmt->bindParam(':imagem_url', $imagem_url, PDO::PARAM_STR);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
 
-        // Consulta preparada separada para atualizar a quantidade
+        // Atualização da URL da imagem
+        $stmtImagem = $pdo->prepare("UPDATE PRODUTO_IMAGEM SET IMAGEM_URL = :imagem_url WHERE PRODUTO_ID = :id");
+        $stmtImagem->bindParam(':imagem_url', $imagem_url, PDO::PARAM_STR);
+        $stmtImagem->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmtImagem->execute();
+
+        // Atualização da quantidade
         $stmtQuantidade = $pdo->prepare('UPDATE PRODUTO_ESTOQUE SET PRODUTO_QTD = :quantidade WHERE PRODUTO_ID = :id');
         $stmtQuantidade->bindParam(':quantidade', $quantidade, PDO::PARAM_INT);
         $stmtQuantidade->bindParam(':id', $id, PDO::PARAM_INT);
         $stmtQuantidade->execute();
 
-        if ($stmt->rowCount() > 0) {
+        if ($stmt->rowCount() >= 0) {
             $mensagem = "Produto atualizado com sucesso!";
-        } else {
-            $mensagem = "Erro ao atualizar o produto!";
         }
+        
     } catch (PDOException $e) {
         echo "Erro: " . $e->getMessage();
     }
